@@ -1,0 +1,17 @@
+---
+layout: default
+---
+<a class="back-link" href="{{ '/writeups/' | relative_url }}">&larr; all writeups</a>
+
+<h1>{{ page.title }}</h1>
+
+<div class="writeup-meta">
+  {% if page.severity %}<span class="badge {{ page.severity | downcase }}">{{ page.severity }}</span>{% endif %}
+  {% if page.date %}<span>{{ page.date | date: '%Y-%m-%d' }}</span>{% endif %}
+  {% if page.target %}<span>{{ page.target }}</span>{% endif %}
+  {% if page.identifier %}<span><a href="{{ page.advisory_url }}" target="_blank" rel="noopener">{{ page.identifier }}</a></span>{% endif %}
+</div>
+
+<article class="writeup-body">
+  {{ content }}
+</article>

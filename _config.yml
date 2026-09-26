@@ -1,0 +1,45 @@
+title: Kaya Emre Arıkan
+tagline: Security Research & Responsible Disclosure
+description: >-
+  Writeups on vulnerabilities I've found and responsibly disclosed —
+  published only after the vendor advisory or CVE is public.
+url: "https://kearikan.com"
+baseurl: ""
+
+author:
+  name: Kaya Emre Arıkan
+  github: kemrec
+
+collections:
+  writeups:
+    output: true
+    permalink: /writeups/:path/
+
+defaults:
+  - scope:
+      path: ""
+      type: writeups
+    values:
+      layout: writeup
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+markdown: kramdown
+highlighter: rouge
+
+sass:
+  style: compressed
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - drafts
+  - vendor
+  - .bundle
