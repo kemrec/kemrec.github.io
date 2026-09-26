@@ -1,5 +1,5 @@
 ---
-title: "n8n's Supabase Node Filter Injection: The Sibling a Fix Left Behind"
+title: "Unescaped PostgREST Filter Injection in n8n's Supabase Node"
 date: 2026-09-16
 target: "n8n-io/n8n (Supabase node)"
 severity: High
