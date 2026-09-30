@@ -5,3 +5,8 @@ _site/
 vendor/
 .bundle/
 Gemfile.lock
+
+# Embargoed / in-progress writeup drafts — never commit these to the public repo.
+# Only the template is tracked.
+drafts/*
+!drafts/writeup-template.md
