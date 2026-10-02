@@ -23,8 +23,9 @@ prompt **every time it is drawn**, so an environment whose name is
 
 Verified end-to-end on **21.14.3** (the latest release at the time of reporting) and
 on **21.9.1**, in real interactive zsh sessions, with controls for bash, for zsh
-without `PROMPT_SUBST`, and with a simulated fix. Reported privately; published the
-same day as [GHSA-5vjq-rrrf-7h2q](https://github.com/pypa/virtualenv/security/advisories/GHSA-5vjq-rrrf-7h2q).
+without `PROMPT_SUBST`, and with a simulated fix. Reported privately; advisory
+[GHSA-5vjq-rrrf-7h2q](https://github.com/pypa/virtualenv/security/advisories/GHSA-5vjq-rrrf-7h2q)
+was published and the fix released in **21.14.4** the same day.
 
 ## Background
 
@@ -201,23 +202,39 @@ same script, zsh payload inert, value renders literally):
 dash (and other POSIX shells without the construct) keep taking the safe branch,
 exactly as the guard's comment intends.
 
+The fix landed upstream the same day and `main` now carries exactly this guard:
+
+```
+    if [ -n "${BASH_VERSION-}${ZSH_VERSION-}" ]; then
+```
+
+It was developed in the advisory's private fork (so it has no public pull request
+of its own), merged to `main`, and shipped in
+**[21.14.4](https://github.com/pypa/virtualenv/releases/tag/21.14.4)** — released the
+same day as the report. [PR #3373](https://github.com/pypa/virtualenv/pull/3373)
+adds the changelog entry that names the advisory and credits the reporter, and
+21.14.4 also shows a `%` in the environment name as typed under zsh. Upgrade to
+**21.14.4** or later.
+
 Testing note: zsh has no faithful equivalent of bash's `${PS1@P}` expansion check,
 and `print -P` is *not* a safe stand-in for a real prompt draw on the escaped form
 — the reliable tests are (a) drive an interactive zsh over a pty, or (b) assert the
-escaped text is present in `PS1` after sourcing. Until a fixed release ships,
-mitigations: rename/unpack untrusted environments to safe directory names, don't
-pass untrusted `--prompt` values, or keep `PROMPT_SUBST` off for shells in which
-untrusted environments are activated.
+escaped text is present in `PS1` after sourcing. For older versions:
+rename/unpack untrusted environments to safe directory names, don't pass untrusted
+`--prompt` values, or keep `PROMPT_SUBST` off for shells in which untrusted
+environments are activated.
 
 ## Timeline
 
 - 2026-10-02 — Reported to the maintainers via GitHub private vulnerability reporting (PVR).
-- 2026-10-02 — Advisory `GHSA-5vjq-rrrf-7h2q` published; remediation developer assigned; fix release pending.
+- 2026-10-02 — Fix merged to `main` (via the advisory's private fork) and released in **21.14.4**; changelog entry added in [PR #3373](https://github.com/pypa/virtualenv/pull/3373).
+- 2026-10-02 — Advisory [GHSA-5vjq-rrrf-7h2q](https://github.com/pypa/virtualenv/security/advisories/GHSA-5vjq-rrrf-7h2q) published (same day as the report).
 
 ## Disclosure
 
 Public advisory: [GHSA-5vjq-rrrf-7h2q](https://github.com/pypa/virtualenv/security/advisories/GHSA-5vjq-rrrf-7h2q)
-(no CVE assigned). Affects `virtualenv <= 21.14.3`.
+(no CVE assigned). Affects `virtualenv <= 21.14.3`; fixed in
+[21.14.4](https://github.com/pypa/virtualenv/releases/tag/21.14.4).
 
 Related advisories for the same class in the same script family:
 [GHSA-p58f-9548-mpm2](https://github.com/pypa/virtualenv/security/advisories/GHSA-p58f-9548-mpm2) (CVE-2026-102925),
