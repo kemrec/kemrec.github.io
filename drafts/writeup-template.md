@@ -19,7 +19,7 @@ target: "<project/vendor name>"
 severity: Critical|High|Medium|Low
 identifier: "CVE-YYYY-NNNNN"          # or GHSA-xxxx-xxxx-xxxx
 advisory_url: "https://..."           # link to the PUBLIC advisory/CVE record
-summary: "<one-sentence summary shown in list views>"
+summary: "<one-sentence summary of the finding>"
 ---
 
 ## Summary

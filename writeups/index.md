@@ -16,13 +16,12 @@ already exists.</p>
 <ul class="writeup-list">
   {% for w in writeups %}
   <li class="writeup-item">
-    <a href="{{ w.url | relative_url }}">
+    <a href="{{ w.url | relative_url }}" title="{{ w.title | escape }}">
       <div class="row">
+        <span class="meta">{{ w.date | date: '%Y-%m-%d' }}</span>
         <span class="title">{{ w.title }}</span>
         {% if w.severity %}<span class="badge {{ w.severity | downcase }}">{{ w.severity }}</span>{% endif %}
-        <span class="meta">{{ w.date | date: '%Y-%m-%d' }}</span>
       </div>
-      {% if w.summary %}<div class="summary">{{ w.summary }}</div>{% endif %}
     </a>
   </li>
   {% endfor %}
