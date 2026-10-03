@@ -3,7 +3,7 @@ title: "n8n's Supabase Node Filter Injection"
 date: 2026-09-16
 target: "n8n-io/n8n (Supabase node)"
 severity: High
-identifier: "GHSA-xrqg-3xcp-h45x"
+identifier: "CVE-2026-103248"
 advisory_url: "https://github.com/n8n-io/n8n/security/advisories/GHSA-xrqg-3xcp-h45x"
 summary: "The Supabase node's 'Filters (String)' mode builds a PostgREST query with zero escaping, letting untrusted input widen a Get/Update/Delete beyond the row it was meant to target — a sibling of a filter-injection bug n8n had already fixed in a different mode."
 ---
@@ -109,7 +109,8 @@ at best.
   release before a status follow-up.
 - **2026-09-16** — Advisory published as `GHSA-xrqg-3xcp-h45x`, High (CVSS
   4.0 `AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:N/SC:H/SI:H/SA:H` = 7.1).
+- **2026-10-01** — `CVE-2026-103248` assigned and published (CNA: VulnCheck).
 
 ## Disclosure
 
-Full advisory: [GHSA-xrqg-3xcp-h45x](https://github.com/n8n-io/n8n/security/advisories/GHSA-xrqg-3xcp-h45x).
+Full advisory: [GHSA-xrqg-3xcp-h45x](https://github.com/n8n-io/n8n/security/advisories/GHSA-xrqg-3xcp-h45x), assigned [CVE-2026-103248](https://www.cve.org/CVERecord?id=CVE-2026-103248).
