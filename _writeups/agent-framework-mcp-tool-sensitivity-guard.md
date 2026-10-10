@@ -48,8 +48,8 @@ value is sensitive. The guard was extended round by round during September
 2026, and in each round the fix added checks to the parameters that the
 particular investigation had identified — the HTTP request executor received
 its gate on 2026-09-28. The mechanism is a per-site hand enumeration, and
-that is where coverage gaps live. This report's gap was found while auditing
-the coverage of that day's HTTP request gate.
+that is where coverage gaps live — the MCP tool executor was the outbound
+path still missing its check.
 
 ## The gap
 
@@ -74,11 +74,11 @@ evaluated headers become the MCP transport's `AdditionalHeaders` and the
 evaluated `serverUrl` is called over Streamable HTTP. The destination — the
 MCP server — is named by the workflow definition itself.
 
-Compare the executor that had received its gate the same day the audit
-started: `HttpRequestExecutor.GetRequestValue()` throws `Cannot use a
-protected value in HTTP request {location}.` for every request field it
-evaluates. The MCP tool invocation — also an outbound path, and one to a
-workflow-selected destination — had no such check at all.
+Compare the HTTP request executor, which received its gate on 2026-09-28:
+`GetRequestValue()` throws `Cannot use a protected value in HTTP request
+{location}.` for every request field it evaluates. The MCP tool invocation —
+also an outbound path, and one to a workflow-selected destination — had no
+such check at all.
 
 ## Verifying it
 
@@ -90,7 +90,7 @@ file added to the repository's own test project (product source unmodified)
 showed the mocked handler receiving the protected value in both the argument
 (`query`) and the transport header (`X-Custom`), while the identical
 construction against `HttpRequestExecutor` threw and never invoked its
-handler — proving both directions on the repo's own harness.
+handler — both directions proven in the repository's own test project.
 
 After the fix, an 18-shape expression battery run through the real executor
 — direct references, concatenation, string interpolation, record and table
@@ -147,8 +147,8 @@ locations across the two execution modes.
 - 2026-09-23 — protected-value guard introduced across the original seven
   executors (commit `0bbb7245d4`).
 - 2026-09-28 — HTTP request executor gate lands (PR #8797, commit
-  `0d6d2bb6b0`); auditing its coverage exposed the MCP tool executor,
-  reported to Microsoft the same day.
+  `0d6d2bb6b0`); the MCP tool executor gap is reported to Microsoft the same
+  day.
 - 2026-09-29 — fixed upstream: PR #8832 (commit `ba320332d4`).
 - 2026-10-07 — advisory GHSA-9f26-7mqc-9vc4 published (High; no CVE); fix
   released in `Microsoft.Agents.AI.Workflows.Declarative` 1.24.0 and
