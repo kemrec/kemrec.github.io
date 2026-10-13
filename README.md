@@ -41,8 +41,10 @@ Research posts (`_research/`) cover n-day work: bugs that were already fixed
 and public when I looked at them. There is no advisory gate, but the fix must
 be public and the post must not pre-empt any live disclosure. Use
 `drafts/research-template.md`, set `date:` to the posting date, and link the
-public fix in the front matter (`fix_url`). Research posts have their own Atom
-feed at `/feed/research.xml`; writeups stay at `/feed/writeups.xml`.
+public fix in the front matter (`fix_url`). If the vendor assigned a CVE, fill
+in the optional `identifier` and `advisory_url` fields too. Research posts
+have their own Atom feed at `/feed/research.xml`; writeups stay at
+`/feed/writeups.xml`.
 
 ## Deploy
 

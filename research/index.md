@@ -6,9 +6,10 @@ permalink: /research/
 
 <h1>Research</h1>
 <p>N-day research notes: bugs I looked into after the fix was already public.
-No CVE, no advisory, just a patch that quietly closed something interesting.
-Every post links to the upstream fix and describes behavior verified against
-released builds.</p>
+Sometimes there is no CVE at all, just a patch that quietly closed something
+interesting; sometimes a CVE exists but the vendor advisory withholds the
+technical detail. Every post links to the upstream fix and describes behavior
+verified against released builds.</p>
 
 <div class="section-title">All research</div>
 
