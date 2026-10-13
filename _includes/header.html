@@ -4,6 +4,7 @@
     <nav class="site-nav">
       <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} class="active"{% endif %}>home</a>
       <a href="{{ '/writeups/' | relative_url }}"{% if page.url contains '/writeups/' %} class="active"{% endif %}>writeups</a>
+      <a href="{{ '/research/' | relative_url }}"{% if page.url contains '/research/' %} class="active"{% endif %}>research</a>
       <a href="{{ '/about/' | relative_url }}"{% if page.url == '/about/' %} class="active"{% endif %}>about</a>
       <a href="https://github.com/{{ site.author.github }}" target="_blank" rel="noopener">github</a>
     </nav>

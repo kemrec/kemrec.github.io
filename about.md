@@ -31,6 +31,12 @@ published <strong>only</strong> after the vendor's own advisory (CVE / GHSA /
 security bulletin) is already public. Nothing here pre-empts a disclosure
 still in progress.
 </p>
+<p>
+<a href="{{ '/research/' | relative_url }}">Research</a> notes on bugs that
+were already fixed upstream by the time I got to them: patch-diff studies and
+security-boundary checks, verified against released builds and linked to the
+public fix.
+</p>
 
 <h2>Elsewhere</h2>
 <p>

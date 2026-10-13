@@ -35,6 +35,15 @@ easy to miss if you only pull a trimmed set of fields from the advisories
    authoring dates.
 4. `bundle exec jekyll serve` to preview, then commit and push
 
+## Adding a research post
+
+Research posts (`_research/`) cover n-day work: bugs that were already fixed
+and public when I looked at them. There is no advisory gate, but the fix must
+be public and the post must not pre-empt any live disclosure. Use
+`drafts/research-template.md`, set `date:` to the posting date, and link the
+public fix in the front matter (`fix_url`). Research posts are not in the Atom
+feed (it covers writeups).
+
 ## Deploy
 
 Push to `main` — GitHub Pages builds and deploys automatically.

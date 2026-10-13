@@ -37,3 +37,22 @@ title: Home
   advisories I've reported become <span class="mono">publicly disclosed</span>.
 </div>
 {% endif %}
+
+{% assign research = site.research | sort: 'date' | reverse %}
+{% if research.size > 0 %}
+<div class="section-title">Recent research</div>
+<ul class="writeup-list">
+  {% for r in research limit:3 %}
+  <li class="writeup-item">
+    <a href="{{ r.url | relative_url }}" title="{{ r.title | escape }}">
+      <div class="row">
+        <span class="meta">{{ r.date | date: '%Y-%m-%d' }}</span>
+        <span class="title">{{ r.title }}</span>
+        {% if r.severity %}<span class="badge {{ r.severity | downcase }}">{{ r.severity }}</span>{% endif %}
+      </div>
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+<p><a href="{{ '/research/' | relative_url }}">view all research &rarr;</a></p>
+{% endif %}

@@ -14,6 +14,9 @@ collections:
   writeups:
     output: true
     permalink: /writeups/:path/
+  research:
+    output: true
+    permalink: /research/:path/
 
 defaults:
   - scope:
@@ -21,6 +24,11 @@ defaults:
       type: writeups
     values:
       layout: writeup
+  - scope:
+      path: ""
+      type: research
+    values:
+      layout: research
   - scope:
       path: ""
     values:
