@@ -44,7 +44,9 @@ be public and the post must not pre-empt any live disclosure. Use
 public fix in the front matter (`fix_url`). If the vendor assigned a CVE, fill
 in the optional `identifier` and `advisory_url` fields too. Research posts
 have their own Atom feed at `/feed/research.xml`; writeups stay at
-`/feed/writeups.xml`.
+`/feed/writeups.xml`. The site sets `future: true`: GitHub Pages builds in
+UTC, and without it a post dated with the local date (UTC+3) would be
+silently hidden until the next UTC midnight.
 
 ## Deploy
 

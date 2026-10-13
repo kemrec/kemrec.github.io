@@ -52,6 +52,13 @@ feed:
     research:
       path: "/feed/research.xml"
 
+# GitHub Pages builds in UTC. Jekyll hides any document whose `date:` is still
+# in the future at build time: it shows up in lists, the feed and the sitemap,
+# but its page is never written (a silent 404). Posting after midnight local
+# (UTC+3) with the local date is enough to hit this, so future-dated docs are
+# built on purpose.
+future: true
+
 markdown: kramdown
 highlighter: rouge
 
