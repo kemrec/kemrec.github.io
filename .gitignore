@@ -10,3 +10,4 @@ Gemfile.lock
 # Only the template is tracked.
 drafts/*
 !drafts/writeup-template.md
+!drafts/research-template.md
