@@ -38,16 +38,19 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
 
-# This site publishes into the `writeups` collection, not `posts`. jekyll-feed's
-# default feed only covers `posts` (empty here), so feed it the collection — this
-# generates a populated Atom feed at /feed/writeups.xml (the <head> link points
-# there). A same-path override to /feed.xml collides with the empty posts feed on
-# the GitHub Pages (legacy) build, so the collection default path is used.
+# This site publishes into the `writeups` and `research` collections, not
+# `posts`. jekyll-feed's default feed only covers `posts` (empty here), so feed
+# it the collections — this generates populated Atom feeds at /feed/writeups.xml
+# and /feed/research.xml (the <head> links point there). A same-path override to
+# /feed.xml collides with the empty posts feed on the GitHub Pages (legacy)
+# build, so the collection default paths are used.
 feed:
   posts_limit: 50   # default is 10; keep the whole writeups history in the feed
   collections:
     writeups:
       path: "/feed/writeups.xml"
+    research:
+      path: "/feed/research.xml"
 
 markdown: kramdown
 highlighter: rouge
