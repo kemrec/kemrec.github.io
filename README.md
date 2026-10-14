@@ -48,6 +48,12 @@ have their own Atom feed at `/feed/research.xml`; writeups stay at
 UTC, and without it a post dated with the local date (UTC+3) would be
 silently hidden until the next UTC midnight.
 
+## Analytics
+
+Cloudflare Web Analytics beacon in `_includes/cloudflare-analytics.html`,
+included from `_includes/head.html`, so every page gets it. Cookieless; the
+token is public by design (it ships in the page HTML).
+
 ## Deploy
 
 Push to `main` — GitHub Pages builds and deploys automatically.
