@@ -7,9 +7,7 @@ title: Home
   <h1>{{ site.author.name }}</h1>
   <div class="tagline">{{ site.tagline }}</div>
   <p>
-    I find and responsibly disclose vulnerabilities in open-source software —
-    from web frameworks to CLI tools to language runtimes. This is where I
-    write up the findings that vendors have already made public.
+    I find and responsibly disclose vulnerabilities in open-source software, from web frameworks to CLI tools to language runtimes. This is where I write up the findings that vendors have already made public.
   </p>
 </div>
 
