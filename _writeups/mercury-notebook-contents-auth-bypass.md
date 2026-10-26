@@ -3,9 +3,7 @@ title: "Mercury: notebook source readable without credentials on token- or passw
 date: 2026-10-26
 target: "mljar/mercury"
 severity: High
-fixed: "3.2.12"
-fix: "authentication restored on MercuryContentsHandler"
-fix_url: "https://github.com/mljar/mercury/releases/tag/v3.2.12"
+identifier: "GHSA-w823-3v59-v22p"
 advisory_url: "https://github.com/mljar/mercury/security/advisories/GHSA-w823-3v59-v22p"
 summary: "Mercury standalone adds its own contents handler for .ipynb paths and overrides get() and put() without the authentication decorators Jupyter's base class carries. On a server started with --token or --pass, an anonymous GET /api/contents/<name>.ipynb returns the full notebook JSON, including cell source and the hidden checkpoint copy. Verified on 3.2.3 through 3.2.11; fixed in 3.2.12."
 ---
