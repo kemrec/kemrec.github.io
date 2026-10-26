@@ -81,7 +81,7 @@ GET /api/contents/team/secrets.ipynb       -> 200
 GET /api/contents/.ipynb_checkpoints/secrets-checkpoint.ipynb -> 200
 ```
 
-The 200 bodies carry the cells verbatim. In the lab notebook that meant a literal `DB_PASSWORD = "Pr0d-S3cret-9911"` in a cell. Password mode behaves the same as token mode.
+The 200 bodies carry the cells verbatim. In the lab notebook that meant a database password sitting in a cell in clear text. Password mode behaves the same as token mode.
 
 Controls from the same run:
 
