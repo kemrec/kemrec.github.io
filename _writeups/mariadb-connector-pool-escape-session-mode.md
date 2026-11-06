@@ -1,18 +1,18 @@
 ---
-title: "MariaDB Connector/Node.js: escape() guessed the session mode"
+title: "MariaDB Connector/Node.js: pool.escape() SQL injection when busy"
 date: 2026-11-06
 target: "mariadb-corporation/mariadb-connector-nodejs"
 severity: High
 identifier: "CONJS-378"
 advisory_url: "https://github.com/mariadb-corporation/mariadb-connector-nodejs/blob/main/CHANGELOG.md"
-summary: "pool.escape() read the escaping mode from an idle connection only. With no idle connection it silently fell back to backslash quoting, which is not an escape on a NO_BACKSLASH_ESCAPES server, so a quoted value could still close the string. Fixed in 3.5.5 and the 3.2 to 3.4 maintenance lines."
+summary: "A SQL injection in pool.escape(): the escaping mode came from an idle connection only, so a cold or saturated pool fell back to backslash quoting, which is not an escape on a NO_BACKSLASH_ESCAPES server. Fixed in 3.5.5 and the 3.2 to 3.4 maintenance lines."
 ---
 
 ## Summary
 
 `pool.escape(value)` is documented as the safe way to build a statement with a value in it: "escaping a parameter properly, according to a parameter type, to avoid injection". To escape correctly it has to know the session's mode, because `NO_BACKSLASH_ESCAPES` changes what a backslash means. It read that mode from an idle connection, and when no connection was idle, before the first connection existed or while all of them were busy, it fell back to the classic backslash tables without telling anyone.
 
-On a server running with `NO_BACKSLASH_ESCAPES`, that fallback is not escaping. A single quote goes out as `\'`, the backslash is an ordinary character to the server, and the quote still closes the literal. The value stays injectable exactly where the API promises it is not.
+On a server running with `NO_BACKSLASH_ESCAPES`, that fallback is not escaping. A single quote goes out as `\'`, the backslash is an ordinary character to the server, and the quote still closes the literal. The value stays injectable exactly where the API promises it is not. In plain terms this is SQL injection, CWE-89, delivered through the function whose documented job is to prevent it.
 
 This is CONJS-378, fixed in 3.5.5 and in the 3.2.6, 3.3.5 and 3.4.8 maintenance releases. The changelog credits buxuwa and Kaya Emre Arikan as reporters.
 
