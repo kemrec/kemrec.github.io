@@ -1,5 +1,5 @@
 ---
-title: "agent-framework: The Sensitivity Guard Covered Every Parameter but the Conversation ID"
+title: "agent-framework: The Sensitivity Guard Missed the Conversation ID"
 date: 2026-10-07
 target: "microsoft/agent-framework"
 severity: Medium

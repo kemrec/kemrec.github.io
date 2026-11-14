@@ -1,5 +1,5 @@
 ---
-title: "Mercury: notebook source readable without credentials on token- or password-protected servers"
+title: "Mercury: Notebook Source Readable Without Credentials"
 date: 2026-10-26
 target: "mljar/mercury"
 severity: High

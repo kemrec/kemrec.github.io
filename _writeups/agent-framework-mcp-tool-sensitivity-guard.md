@@ -1,5 +1,5 @@
 ---
-title: "agent-framework: The Sensitivity Guard Was Missing From the MCP Tool Executor"
+title: "agent-framework: The MCP Tool Executor Skipped the Sensitivity Guard"
 date: 2026-10-07
 target: "microsoft/agent-framework"
 severity: High

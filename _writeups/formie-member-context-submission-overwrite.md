@@ -1,5 +1,5 @@
 ---
-title: "Formie's Guest-Only Submission Gate Let Any Logged-In Member Overwrite Another User's Submission"
+title: "Formie: Any Logged-In Member Could Overwrite Another User's Submission"
 date: 2026-09-30
 target: "verbb/formie"
 severity: Medium

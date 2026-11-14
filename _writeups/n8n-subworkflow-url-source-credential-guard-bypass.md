@@ -1,5 +1,5 @@
 ---
-title: "n8n: Execute Sub-workflow URL Sources Bypass the Shared-Workflow Credential Guard"
+title: "n8n: URL-Sourced Sub-workflows Bypass the Credential Guard"
 date: 2026-10-14
 target: "n8n-io/n8n (Execute Sub-workflow node)"
 severity: Medium

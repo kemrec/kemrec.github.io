@@ -1,5 +1,5 @@
 ---
-title: "encodeGitLabPath Never Blocks ../: Path Traversal to Arbitrary GitLab API Endpoints"
+title: "gitlab-mcp: Path Traversal to Any GitLab API Endpoint"
 date: 2026-09-23
 target: "zereight/gitlab-mcp"
 severity: High
