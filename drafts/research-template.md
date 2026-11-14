@@ -11,7 +11,7 @@ disclosure first.
 4. Delete this comment block
 -->
 ---
-title: "<Project>: <what the bug does>"
+title: "<Project>: <what the bug does>"   # impact-forward, one clean header line; lead with impact not mechanism/function name; no run-on; no em/en dash. See writeup-template note.
 date: YYYY-MM-DD
 target: "<project/vendor name>"
 severity: Critical|High|Medium|Low
