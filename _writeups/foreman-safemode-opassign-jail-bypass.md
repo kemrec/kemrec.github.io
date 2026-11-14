@@ -1,5 +1,5 @@
 ---
-title: "Foreman safemode: op-assign nodes bypass the Jail allow-list"
+title: "Escaping Foreman's Template Sandbox with a Compound Assignment"
 date: 2026-11-12
 target: "theforeman/safemode"
 severity: Critical
