@@ -1,13 +1,7 @@
 ---
 title: "Patch-Diffing a Large Closed-Source Binary Cluster"
 date: 2026-11-14
-target: "Microsoft Outlook"
-severity: Low
-fixed: "n/a (methodology)"
-fix: "n/a"
-fix_url: "https://msrc.microsoft.com/update-guide/releaseNote/2026-Oct"
-identifier: ""
-advisory_url: "https://msrc.microsoft.com/update-guide/releaseNote/2026-Oct"
+target: "Binary reverse engineering"
 summary: "A method post on recovering the root cause of memory-safety fixes from a monthly closed-source binary update. It covers acquiring matched before and after builds, pairing functions across a full rebuild without symbols, the blind spot that hides inline bounds-check fixes from a naive diff, and the instruction-level diff that surfaces them, ending with variant hunting and the reachability gate."
 ---
 
