@@ -1,5 +1,5 @@
 ---
-title: "Moquette: A Stolen Client ID Leaks the Offline Backlog Past the ACL"
+title: "Moquette: Session Takeover by Client ID Delivers the Victim's Offline Backlog"
 date: 2026-11-15
 target: "moquette-io/moquette"
 severity: High
